@@ -25,6 +25,7 @@ const assistant = await openai.beta.assistants.create({
       Always respect user privacy by not storing or sharing any of the uploaded content.
       Always use the response tool to respond to the user. Never add any other text to the response.`,
   tools: [
+    { type: "retrieval" },
     {
       type: "function",
       function: {
@@ -79,7 +80,34 @@ async function textToAssistant(text: string): Promise<string> {
 }
 
 async function fileToAssistant(file: File): Promise<string> {
-  return "todo";
+  const fileObject = await openai.files.create({
+    file: file,
+    purpose: "assistants",
+  });
+
+  const thread = await openai.beta.threads.create();
+  await openai.beta.threads.messages.create(thread.id, {
+    role: "user",
+    content: "see attached file",
+    file_ids: [fileObject.id],
+  });
+
+  let run = await openai.beta.threads.runs.create(thread.id, {
+    assistant_id: assistant.id,
+  });
+
+  while (run.status !== "requires_action") {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    run = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+  }
+  const response =
+    run.required_action!.submit_tool_outputs.tool_calls[0].function.arguments;
+  console.log(response);
+
+  // delete file
+  await openai.files.del(fileObject.id);
+
+  return response;
 }
 
 const server = Bun.serve({
