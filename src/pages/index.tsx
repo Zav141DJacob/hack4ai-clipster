@@ -11,8 +11,7 @@ import { LuArrowLeftRight } from "react-icons/lu";
 import Nav from "@/components/Nav";
 
 export default function Home() {
-  const [text, setText] = useState<string>("");
-  const { fetchQuestions } = useContext(QuestionsContext);
+  const { fetchQuestions, questions } = useContext(QuestionsContext);
   const [correctAnswer, setCorrectAnswer] = useState({
     answerSelected: false,
     correctAnswer: false,
@@ -32,29 +31,6 @@ export default function Home() {
   const onSubmit = (text: string) => {
     fetchQuestions(text);
   };
-
-  const questions = [
-    {
-      q: "War has been a constant feature throughout human history.",
-      a: true,
-    },
-    {
-      q: "The essence of war involves a harmonious resolution of conflicts.",
-      a: false,
-    },
-    {
-      q: "Wars have been fought for various reasons such as territorial expansion and ideological supremacy.",
-      a: true,
-    },
-    {
-      q: "The aftermath of war is usually characterized by immediate prosperity and development.",
-      a: false,
-    },
-    {
-      q: "War has only negative consequences without any positive outcomes such as innovation or progress.",
-      a: false,
-    },
-  ];
 
   const setClass = () => {
     if (correctAnswer.answerSelected && correctAnswer.correctAnswer) {
