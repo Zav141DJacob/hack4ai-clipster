@@ -8,8 +8,8 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
-      regular: 'regular',
-      regularBold: 'regularBold',
+      regular: "regular",
+      regularBold: "regularBold",
     },
     colors: {
       white: "#FFFFFF",
@@ -18,6 +18,8 @@ const config: Config = {
       lightGray: "#F9F9F9",
       myRed1: "#EF233C",
       myRed2: "#D90429",
+      success: "#a3e635",
+      failure: "#dc2626",
     },
     extend: {
       backgroundImage: {
