@@ -1,5 +1,5 @@
 import { EditIcon } from "@chakra-ui/icons";
-import { Center } from "@chakra-ui/react";
+import { Center, SlideFade } from "@chakra-ui/react";
 import { CiPaperplane } from "react-icons/ci";
 import { useContext, useState } from "react";
 import { QuestionsContext } from "@/context/QuestionContext";
@@ -12,7 +12,7 @@ export default function AskAi() {
   const { fetchQuestions, loading } = useContext(QuestionsContext);
 
   return (
-    <React.Fragment>
+    <SlideFade offsetY="20px" in={true}>
       <main className="flex flex-col h-[100vh] transition-colors gap-4">
         <React.Fragment>
           <div className="bg-default opacity-15 w-full h-full absolute -z-10 bg-cover sm:bg-auto "></div>
@@ -73,6 +73,6 @@ export default function AskAi() {
           </div>
         </div>
       </main>
-    </React.Fragment>
+    </SlideFade>
   );
 }

@@ -16,6 +16,8 @@ export interface QuestionContext {
   fetchQuestions: (text: string) => Promise<void>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  loggedIn: boolean;
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultState: QuestionContext = {
@@ -24,6 +26,8 @@ const defaultState: QuestionContext = {
   fetchQuestions: async () => {},
   loading: false,
   setLoading: () => false,
+  loggedIn: false,
+  setLoggedIn: () => false,
 };
 
 export const QuestionsContext = createContext<QuestionContext>(defaultState);
@@ -40,6 +44,13 @@ const QuestionsProvider = ({ children }: QuestionProvidedProps) => {
   const router = useRouter();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [loggedIn, setLoggedIn] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      const loggedInState = localStorage.getItem("loggedIn");
+      return loggedInState ? JSON.parse(loggedInState) : false;
+    }
+    return false;
+  });
 
   const fetchQuestions = async (text: string) => {
     try {
@@ -53,16 +64,32 @@ const QuestionsProvider = ({ children }: QuestionProvidedProps) => {
   };
 
   useEffect(() => {
+    localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
+  }, [loggedIn]);
+
+  useEffect(() => {
+    if (!loggedIn) {
+      router.push("/intro");
+    }
+
     if (questions.length >= 1) {
       router.push("/Questions");
     } else {
       router.push("/");
     }
-  }, [questions]);
+  }, [questions, loggedIn]);
 
   return (
     <QuestionsContext.Provider
-      value={{ questions, setQuestions, fetchQuestions, loading, setLoading }}
+      value={{
+        questions,
+        setQuestions,
+        fetchQuestions,
+        loading,
+        setLoading,
+        loggedIn,
+        setLoggedIn,
+      }}
     >
       {children}
     </QuestionsContext.Provider>
