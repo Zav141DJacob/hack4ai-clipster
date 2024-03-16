@@ -19,7 +19,7 @@ type InputData = {
 };
 
 export const config = {
-  maxDuration: 60,
+  maxDuration: 10,
 };
 
 export default async function handler(
