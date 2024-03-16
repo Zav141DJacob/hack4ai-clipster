@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { QuestionsContext } from "@/context/QuestionContext";
 import { TailSpin } from "react-loader-spinner";
 import React from "react";
+import AskAiCard from "@/components/AskAiCard";
 
 export default function AskAi() {
   const [text, setText] = useState("");
@@ -19,20 +20,20 @@ export default function AskAi() {
           <div className="bg-white rounded-t-[5rem] w-full h-2/3 absolute -z-10 bottom-0"></div>
         </React.Fragment>
 
-        <div className="text-white h-1/5 font-regularBold text-center flex flex-col justify-end gap-5">
+        <div className="text-white h-1/5 font-regularBold text-center flex flex-col justify-end gap-5 px-5 md:mt-0 mt-20">
           <p className="text-3xl lg:text-5xl">Hey, Darja!</p>
           <p className="text-sm sm:text-md md:text-lg lg:text-xl">
             What would you like to study today?
           </p>
         </div>
 
-        <div className="shadow-md shadow-myRed1 rounded-3xl mx-[10%] text-sm sm:text-md md:text-lg text-center flex flex-col justify-center bg-lightGray py-4 gap-4">
-          <div className="flex px-6 items-center">
+        <div className="shadow-md shadow-myRed1 rounded-3xl text-sm sm:text-md md:text-lg text-center bg-lightGray py-4 mx-3 md:mx-20 md:mt-0">
+          <div className="flex px-4">
             <textarea
               onChange={(e) => setText(e.target.value)}
               placeholder="Ask AI..."
-              rows={1}
-              className="w-full outline-none text-darkGray max-w-full bg-lightGray shadow-sm rounded-t-3xl placeholder-gray"
+              rows={6}
+              className="w-full outline-none text-darkGray max-w-full bg-lightGray  placeholder-gray resize-none border-b-2 border-border"
             />
             {loading ? (
               <TailSpin
@@ -43,23 +44,32 @@ export default function AskAi() {
                 radius="1"
               />
             ) : (
-              <CiPaperplane onClick={() => fetchQuestions(text)} size={20} />
+              <CiPaperplane
+                className="cursor-pointer"
+                onClick={() => fetchQuestions(text)}
+                size={20}
+              />
             )}
           </div>
-          <div className="w-full outline-none text-center text-gray max-w-full px-4 border-b border-b-1 border-b-white rounded-b-3xl gap-1 flex">
+          <div className="w-full outline-none text-center text-gray max-w-full px-4 border-b border-b-1 border-b-white rounded-b-3xl gap-1 flex mt-5">
             <Center>
               <EditIcon w="16px" h="16px" />
             </Center>
             Drop PDF, JPEG or PNG
           </div>
         </div>
-        <div className="flex gap-2 justify-around mx-[10%]">
-          <div className="shadow-md shadow-myRed1 rounded-3xl min-w-28 text-center flex flex-col justify-center bg-lightGray"></div>
-          <div className="flex flex-wrap gap-2">
-            <div className="shadow-md shadow-myRed1 rounded-2xl w-12 h-12 text-center flex flex-col justify-center bg-lightGray"></div>
-            <div className="shadow-md shadow-myRed1 rounded-2xl w-12 h-12 text-center flex flex-col justify-center bg-lightGray"></div>
-            <div className="shadow-md shadow-myRed1 rounded-2xl w-12 h-12 text-center flex flex-col justify-center bg-lightGray"></div>
-            <div className="shadow-md shadow-myRed1 rounded-2xl w-12 h-12 text-center flex flex-col justify-center bg-lightGray"></div>
+        <div className="py-5 md:px-40 px-3">
+          <div className="grid grid-cols-2 gap-4">
+            <AskAiCard
+              title="Memorise"
+              description="Get back on track and go over your flashcards. "
+              image="/memorize.png"
+            />
+            <AskAiCard
+              title="Import / Export"
+              description="Share existing cards with your classmates"
+              image="/import.png"
+            />
           </div>
         </div>
       </main>
