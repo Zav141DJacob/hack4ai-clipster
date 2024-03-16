@@ -7,6 +7,7 @@ import { Question } from "@/types/Question";
 import React from "react";
 import { LuArrowLeftRight } from "react-icons/lu";
 import Nav from "@/components/Nav";
+import { SlideFade } from "@chakra-ui/react";
 
 export default function Questions() {
   const { questions } = useContext(QuestionsContext);
@@ -38,7 +39,7 @@ export default function Questions() {
   };
 
   return (
-    <React.Fragment>
+    <SlideFade offsetY="20px" in={true}>
       <main className="flex flex-col h-[100vh] justify-between overflow-x-hidden z-10">
         <React.Fragment>
           <div
@@ -91,6 +92,6 @@ export default function Questions() {
             onClick={() => onSubmit(text)}>submit</button>
         </div> */}
       </main>
-    </React.Fragment>
+    </SlideFade>
   );
 }
