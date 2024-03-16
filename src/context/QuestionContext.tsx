@@ -14,20 +14,18 @@ export interface QuestionContext {
   questions: Question[];
   setQuestions: Dispatch<SetStateAction<Question[]>>;
   fetchQuestions: (text: string) => Promise<void>;
+  fetchQuestionsFile: (file: File) => Promise<void>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  loggedIn: boolean;
-  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultState: QuestionContext = {
   questions: [],
   setQuestions: () => {},
   fetchQuestions: async () => {},
+  fetchQuestionsFile: async () => {},
   loading: false,
   setLoading: () => false,
-  loggedIn: false,
-  setLoggedIn: () => false,
 };
 
 export const QuestionsContext = createContext<QuestionContext>(defaultState);
@@ -44,13 +42,6 @@ const QuestionsProvider = ({ children }: QuestionProvidedProps) => {
   const router = useRouter();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [loggedIn, setLoggedIn] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      const loggedInState = localStorage.getItem("loggedIn");
-      return loggedInState ? JSON.parse(loggedInState) : false;
-    }
-    return false;
-  });
 
   const fetchQuestions = async (text: string) => {
     try {
@@ -63,21 +54,30 @@ const QuestionsProvider = ({ children }: QuestionProvidedProps) => {
     }
   };
 
-  useEffect(() => {
-    localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
-  }, [loggedIn]);
-
-  useEffect(() => {
-    if (!loggedIn) {
-      router.push("/intro");
+  const fetchQuestionsFile = async (file: File) => {
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await axios.post("/api/file", formData);
+      if (response.data.questions) {
+        setQuestions(response.data.questions);
+      } else {
+        console.error("Error fetching questions:", response.data);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching questions:", error);
     }
+  };
 
+  useEffect(() => {
     if (questions.length >= 1) {
       router.push("/Questions");
     } else {
       router.push("/");
     }
-  }, [questions, loggedIn]);
+  }, [questions]);
 
   return (
     <QuestionsContext.Provider
@@ -85,10 +85,9 @@ const QuestionsProvider = ({ children }: QuestionProvidedProps) => {
         questions,
         setQuestions,
         fetchQuestions,
+        fetchQuestionsFile,
         loading,
         setLoading,
-        loggedIn,
-        setLoggedIn,
       }}
     >
       {children}
