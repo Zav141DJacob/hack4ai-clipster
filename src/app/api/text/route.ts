@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -22,18 +23,13 @@ export const config = {
   maxDuration: 10,
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  let input = req.body as InputData;
+export async function POST(req: Request) {
+  let input = (await req.json()) as InputData;
   if (!input.text) {
-    res.status(400).json({ error: "Missing text" });
-    return;
+    return NextResponse.json({ error: "Missing text" }, { status: 400 });
   }
   const response = await sendTextToFlashcardCreator(input.text);
-
-  res.status(200).json(JSON.parse(response));
+  return NextResponse.json(JSON.parse(response));
 }
 
 async function sendTextToFlashcardCreator(text: string): Promise<string> {

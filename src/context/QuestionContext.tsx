@@ -113,7 +113,7 @@ const QuestionsProvider = ({ children }: QuestionProvidedProps) => {
   const fetchQuestions = async (text: string) => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/questions", { text });
+      const response = await axios.post("/api/text", { text });
 
       const questionsWithUUID = response.data.questions.map(
         (question: Question) => ({
@@ -146,7 +146,6 @@ const QuestionsProvider = ({ children }: QuestionProvidedProps) => {
       console.error("Error fetching questions:", error);
     }
   };
-
 
   useEffect(() => {
     localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
