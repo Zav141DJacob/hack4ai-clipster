@@ -111,7 +111,7 @@ const Card = ({
     }
 
     if (index === 0) {
-      router.push("/");
+      router.push("/summary");
     }
   };
 
