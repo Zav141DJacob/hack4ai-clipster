@@ -7,10 +7,17 @@ import Card from "@/components/Card";
 import { QuestionsContext } from "@/context/QuestionContext";
 import { Question } from "@/types/Question";
 import React from "react";
+import { LuArrowLeftRight } from "react-icons/lu";
 
 export default function Home() {
   const [text, setText] = useState<string>("");
-  const { questions, fetchQuestions } = useContext(QuestionsContext);
+  const { fetchQuestions } = useContext(QuestionsContext);
+  const [correctAnswer, setCorrectAnswer] = useState({
+    answerSelected: false,
+    correctAnswer: false,
+    text: "left or right?",
+    icon: <LuArrowLeftRight />,
+  });
 
   let bg1Ref: MutableRefObject<HTMLDivElement | null> =
     useRef<HTMLDivElement>(null);
@@ -21,6 +28,40 @@ export default function Home() {
 
   const onSubmit = (text: string) => {
     fetchQuestions(text);
+  };
+
+  const questions = [
+    {
+      q: "War has been a constant feature throughout human history.",
+      a: true,
+    },
+    {
+      q: "The essence of war involves a harmonious resolution of conflicts.",
+      a: false,
+    },
+    {
+      q: "Wars have been fought for various reasons such as territorial expansion and ideological supremacy.",
+      a: true,
+    },
+    {
+      q: "The aftermath of war is usually characterized by immediate prosperity and development.",
+      a: false,
+    },
+    {
+      q: "War has only negative consequences without any positive outcomes such as innovation or progress.",
+      a: false,
+    },
+  ];
+
+  const setClass = () => {
+    if (correctAnswer.answerSelected && correctAnswer.correctAnswer) {
+      return "bg-success";
+    }
+
+    if (correctAnswer.answerSelected && !correctAnswer.correctAnswer) {
+      return "bg-failure";
+    }
+    return "bg-myRed1";
   };
 
   return (
@@ -55,17 +96,18 @@ export default function Home() {
                 bg1Ref={bg1Ref}
                 bg2Ref={bg2Ref}
                 navRef={navRef}
+                setCorrectAnswer={setCorrectAnswer}
+                correctAnswer={correctAnswer}
               />
             ))}
         </div>
-        <div className="bg-myRed1 rounded-xl mx-[10%] mb-12 pt-4">
-          <textarea
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Your answer"
-            rows={1}
-            className=" outline-none text-center text-white max-w-full pb-4 px-4 border-b border-b-1 border-b-white bg-myRed1 rounded-xl placeholder-lightGray"
-          />
-          <button onClick={() => onSubmit(text)}>submit</button>
+        <div
+          className={`${setClass()} rounded-xl mx-[10%] mb-12 flex justify-center py-5`}
+        >
+          <p className="text-white flex items-center">
+            <span className="mr-4">{correctAnswer.text}</span>
+            {correctAnswer.icon}
+          </p>
         </div>
       </main>
     </React.Fragment>

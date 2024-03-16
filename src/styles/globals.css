@@ -13,10 +13,12 @@ body {
   font-family: regular;
   src: url("./font/SF-Pro-Text-Regular.otf");
 }
+
 @font-face {
   font-family: regularBold;
   src: url("./font/SF-Pro-Text-Bold.otf");
 }
+
 @layer base {
   html {
     font-family: "regular";

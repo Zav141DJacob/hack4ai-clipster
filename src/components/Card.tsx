@@ -1,15 +1,38 @@
 import { Question } from "@/types/Question";
 import React, { MutableRefObject } from "react";
 import TinderCard from "react-tinder-card";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { FaRegTimesCircle } from "react-icons/fa";
 
 interface Props {
   bg1Ref: MutableRefObject<HTMLDivElement | null>;
   bg2Ref: MutableRefObject<HTMLDivElement | null>;
   navRef: MutableRefObject<HTMLDivElement | null>;
   question: Question;
+  setCorrectAnswer: React.Dispatch<
+    React.SetStateAction<{
+      answerSelected: boolean;
+      correctAnswer: boolean;
+      text: string;
+      icon: React.JSX.Element;
+    }>
+  >;
+  correctAnswer: {
+    answerSelected: boolean;
+    correctAnswer: boolean;
+    text: string;
+    icon: React.JSX.Element;
+  };
 }
 
-const Card = ({ bg1Ref, bg2Ref, navRef, question }: Props) => {
+const Card = ({
+  bg1Ref,
+  bg2Ref,
+  navRef,
+  question,
+  setCorrectAnswer,
+  correctAnswer,
+}: Props) => {
   const clickEvent = () => {
     bg1Ref.current?.classList.toggle("bg-myRed1");
     bg1Ref.current?.classList.toggle("bg-lightGray");
@@ -19,21 +42,45 @@ const Card = ({ bg1Ref, bg2Ref, navRef, question }: Props) => {
     navRef.current?.classList.toggle("text-myRed2");
   };
 
-  console.log(question);
-
   const onSwipe = (direction: string) => {
-    console.log("You swiped: " + direction);
-  };
+    if (question.a === true && direction === "right") {
+      setCorrectAnswer({
+        ...correctAnswer,
+        answerSelected: true,
+        correctAnswer: true,
+        text: "correct",
+        icon: <FaRegCircleCheck />,
+      });
+    }
 
-  const onCardLeftScreen = (myIdentifier: string) => {
-    console.log(myIdentifier + " left the screen");
+    if (question.a === false && direction === "left") {
+      setCorrectAnswer({
+        ...correctAnswer,
+        answerSelected: true,
+        correctAnswer: true,
+        text: "correct",
+        icon: <FaRegCircleCheck />,
+      });
+    }
+
+    if (
+      (question.a === true && direction === "left") ||
+      (question.a === false && direction === "right")
+    ) {
+      setCorrectAnswer({
+        ...correctAnswer,
+        answerSelected: true,
+        correctAnswer: false,
+        text: "incorrect",
+        icon: <FaRegTimesCircle />,
+      });
+    }
   };
 
   return (
     <TinderCard
       className="absolute pressable hover:cursor-grab active:cursor-grabbing"
       onSwipe={onSwipe}
-      onCardLeftScreen={() => onCardLeftScreen("fooBar")}
       preventSwipe={["up", "down"]}
     >
       <div
