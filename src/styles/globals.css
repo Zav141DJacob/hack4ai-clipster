@@ -32,3 +32,6 @@ body {
 .container {
   overflow-x: hidden;
 }
+textarea {
+  @apply resize-none;
+}

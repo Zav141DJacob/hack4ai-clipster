@@ -18,6 +18,10 @@ type InputData = {
   text: string;
 };
 
+export const config = {
+  maxDuration: 10,
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>

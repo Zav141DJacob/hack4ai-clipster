@@ -1,15 +1,25 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Center, SlideFade } from "@chakra-ui/react";
 import { CiPaperplane } from "react-icons/ci";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { QuestionsContext } from "@/context/QuestionContext";
 import { TailSpin } from "react-loader-spinner";
 import React from "react";
 import AskAiCard from "@/components/AskAiCard";
+import { useDropzone } from "react-dropzone";
 
 export default function AskAi() {
   const [text, setText] = useState("");
-  const { fetchQuestions, loading } = useContext(QuestionsContext);
+  const { fetchQuestions, fetchQuestionsFile, loading } =
+    useContext(QuestionsContext);
+
+  const onDrop = useCallback((files: File[]) => {
+    fetchQuestionsFile(files[0]);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    multiple: false,
+  });
 
   return (
     <SlideFade offsetY="20px" in={true}>
@@ -31,7 +41,7 @@ export default function AskAi() {
           <div className="flex px-4">
             <textarea
               onChange={(e) => setText(e.target.value)}
-              placeholder="Ask AI..."
+              placeholder="Add a text paragraph with your study materials..."
               rows={6}
               className="w-full outline-none text-darkGray max-w-full bg-lightGray  placeholder-gray resize-none border-b-2 border-border"
             />
@@ -51,11 +61,19 @@ export default function AskAi() {
               />
             )}
           </div>
-          <div className="w-full outline-none text-center text-gray max-w-full px-4 border-b border-b-1 border-b-white rounded-b-3xl gap-1 flex mt-5">
+          <div
+            className="w-full outline-none text-center text-gray max-w-full px-4 border-b border-b-1 border-b-white rounded-b-3xl gap-1 flex mt-5"
+            {...getRootProps()}
+          >
             <Center>
-              <EditIcon w="16px" h="16px" />
+              <EditIcon w="16px" h="16px" className="mr-2" />
+              <input {...getInputProps()} />
+              {isDragActive ? (
+                <p>Drop the file here</p>
+              ) : (
+                <p>Drop PDF, image or other file, or click to select</p>
+              )}
             </Center>
-            Drop PDF, JPEG or PNG
           </div>
         </div>
         <div className="py-5 md:px-40 px-3">
