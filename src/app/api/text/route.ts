@@ -19,10 +19,6 @@ type InputData = {
   text: string;
 };
 
-export const config = {
-  maxDuration: 10,
-};
-
 export async function POST(req: Request) {
   let input = (await req.json()) as InputData;
   if (!input.text) {
