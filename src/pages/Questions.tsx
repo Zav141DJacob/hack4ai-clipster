@@ -54,29 +54,8 @@ export default function Questions() {
         <Nav myRef={navRef} />
 
         <div className="h-[90%] flex flex-col sm:flex-row justify-center sm:mt-36 w-full absolute overflow-hidden">
-          {true &&
-            [
-              {
-                q: "War has been a constant feature throughout human history.",
-                a: true,
-              },
-              {
-                q: "The essence of war involves a harmonious resolution of conflicts.",
-                a: false,
-              },
-              {
-                q: "Wars have been fought for various reasons such as territorial expansion and ideological supremacy.",
-                a: true,
-              },
-              {
-                q: "The aftermath of war is usually characterized by immediate prosperity and development.",
-                a: false,
-              },
-              {
-                q: "War has only negative consequences without any positive outcomes such as innovation or progress.",
-                a: false,
-              },
-            ].map((question: Question, index) => (
+          {questions &&
+            questions.map((question: Question, index) => (
               <Card
                 textareaRef={textareaRef}
                 question={question}
