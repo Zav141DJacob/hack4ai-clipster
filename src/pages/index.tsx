@@ -11,7 +11,7 @@ import { LuArrowLeftRight } from "react-icons/lu";
 
 export default function Home() {
   const [text, setText] = useState<string>("");
-  const { fetchQuestions } = useContext(QuestionsContext);
+  const { questions, fetchQuestions } = useContext(QuestionsContext);
   const [correctAnswer, setCorrectAnswer] = useState({
     answerSelected: false,
     correctAnswer: false,
@@ -29,29 +29,6 @@ export default function Home() {
   const onSubmit = (text: string) => {
     fetchQuestions(text);
   };
-
-  const questions = [
-    {
-      q: "War has been a constant feature throughout human history.",
-      a: true,
-    },
-    {
-      q: "The essence of war involves a harmonious resolution of conflicts.",
-      a: false,
-    },
-    {
-      q: "Wars have been fought for various reasons such as territorial expansion and ideological supremacy.",
-      a: true,
-    },
-    {
-      q: "The aftermath of war is usually characterized by immediate prosperity and development.",
-      a: false,
-    },
-    {
-      q: "War has only negative consequences without any positive outcomes such as innovation or progress.",
-      a: false,
-    },
-  ];
 
   const setClass = () => {
     if (correctAnswer.answerSelected && correctAnswer.correctAnswer) {
@@ -74,7 +51,6 @@ export default function Home() {
           ref={bg2Ref}
           className="bg-myRed1 rounded-b-[5rem] w-full h-1/3 absolute -z-0"
         ></div>
-        {/* nav */}
         <div
           ref={navRef}
           className="w-full text-center py-4 text-white text-2xl font-regularBold  flex justify-around z-10"
