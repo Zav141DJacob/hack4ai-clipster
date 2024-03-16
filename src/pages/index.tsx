@@ -8,6 +8,7 @@ import { QuestionsContext } from "@/context/QuestionContext";
 import { Question } from "@/types/Question";
 import React from "react";
 import { LuArrowLeftRight } from "react-icons/lu";
+import Nav from "@/components/Nav";
 
 export default function Home() {
   const [text, setText] = useState<string>("");
@@ -19,6 +20,8 @@ export default function Home() {
     icon: <LuArrowLeftRight />,
   });
 
+  let textareaRef: MutableRefObject<HTMLTextAreaElement | null> =
+    useRef<HTMLTextAreaElement>(null);
   let bg1Ref: MutableRefObject<HTMLDivElement | null> =
     useRef<HTMLDivElement>(null);
   let bg2Ref: MutableRefObject<HTMLDivElement | null> =
@@ -67,30 +70,22 @@ export default function Home() {
   return (
     <React.Fragment>
       <main
-        ref={bg1Ref}
-        className="flex flex-col h-[100vh] justify-between bg-lightGray transition-colors overflow-x-hidden relative"
+        className="flex flex-col h-[100vh] justify-between overflow-x-hidden z-10"
       >
-        <div
-          ref={bg2Ref}
-          className="bg-myRed1 rounded-b-[5rem] w-full h-1/3 absolute -z-0"
-        ></div>
-        {/* nav */}
-        <div
-          ref={navRef}
-          className="w-full text-center py-4 text-white text-2xl font-regularBold  flex justify-around z-10"
-        >
-          <Center>
-            <ArrowBackIcon />
-          </Center>
-          Chapter 5
-          <Center>
-            <ArrowForwardIcon />
-          </Center>
-        </div>
+
+        {/* background */}
+        <>
+          <div ref={bg1Ref} className="bg-lightGray w-full h-full absolute -z-40 transition-colors"></div>
+          <div ref={bg2Ref} className="bg-myRed1 rounded-b-[5rem] w-full h-1/3 absolute -z-30 transition-colors"></div>
+        </>
+        <Nav myRef={navRef} />
+
         <div className="h-full flex justify-center md:pt-24 pt-40">
           {questions &&
             questions.map((question: Question, index) => (
               <Card
+                textareaRef={textareaRef}
+
                 question={question}
                 key={index}
                 bg1Ref={bg1Ref}
@@ -109,6 +104,21 @@ export default function Home() {
             {correctAnswer.icon}
           </p>
         </div>
+
+        {/* <div className="bg-myRed1 rounded-3xl mx-[12%] sm:mx-auto mb-12 pt-4 max-w-[28rem] border border-white">
+          <textarea
+            ref={textareaRef}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Your answer"
+            rows={1}
+            className="w-full outline-none text-center text-white max-w-full pb-4 px-4 border-b border-b-1 border-b-white bg-myRed1 rounded-xl placeholder-lightGray"
+          >
+
+          </textarea>
+          <button
+            className="absolute right-0 "
+            onClick={() => onSubmit(text)}>submit</button>
+        </div> */}
       </main>
     </React.Fragment>
   );

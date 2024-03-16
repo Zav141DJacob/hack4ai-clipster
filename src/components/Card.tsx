@@ -8,6 +8,8 @@ interface Props {
   bg1Ref: MutableRefObject<HTMLDivElement | null>;
   bg2Ref: MutableRefObject<HTMLDivElement | null>;
   navRef: MutableRefObject<HTMLDivElement | null>;
+  textareaRef: MutableRefObject<HTMLTextAreaElement | null>;
+
   question: Question;
   setCorrectAnswer: React.Dispatch<
     React.SetStateAction<{
@@ -30,6 +32,7 @@ const Card = ({
   bg2Ref,
   navRef,
   question,
+  textareaRef,
   setCorrectAnswer,
   correctAnswer,
 }: Props) => {
@@ -40,6 +43,7 @@ const Card = ({
     bg2Ref.current?.classList.toggle("bg-lightGray");
     navRef.current?.classList.toggle("text-white");
     navRef.current?.classList.toggle("text-myRed2");
+    textareaRef.current?.classList.toggle("border-b");
   };
 
   const onSwipe = (direction: string) => {
