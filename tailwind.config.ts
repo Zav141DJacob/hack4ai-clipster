@@ -20,6 +20,7 @@ const config: Config = {
       myRed2: "#D90429",
       success: "#a3e635",
       failure: "#dc2626",
+      border: '#d6d3d1'
     },
     extend: {
       backgroundImage: {

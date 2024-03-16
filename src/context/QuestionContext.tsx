@@ -14,6 +14,7 @@ export interface QuestionContext {
   questions: Question[];
   setQuestions: Dispatch<SetStateAction<Question[]>>;
   fetchQuestions: (text: string) => Promise<void>;
+  fetchQuestionsFile: (file: File) => Promise<void>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -22,6 +23,7 @@ const defaultState: QuestionContext = {
   questions: [],
   setQuestions: () => {},
   fetchQuestions: async () => {},
+  fetchQuestionsFile: async () => {},
   loading: false,
   setLoading: () => false,
 };
@@ -52,6 +54,23 @@ const QuestionsProvider = ({ children }: QuestionProvidedProps) => {
     }
   };
 
+  const fetchQuestionsFile = async (file: File) => {
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await axios.post("/api/file", formData);
+      if (response.data.questions) {
+        setQuestions(response.data.questions);
+      } else {
+        console.error("Error fetching questions:", response.data);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
+  };
+
   useEffect(() => {
     console.log("question change")
     // if (questions.length >= 1) {
@@ -63,7 +82,14 @@ const QuestionsProvider = ({ children }: QuestionProvidedProps) => {
 
   return (
     <QuestionsContext.Provider
-      value={{ questions, setQuestions, fetchQuestions, loading, setLoading }}
+      value={{
+        questions,
+        setQuestions,
+        fetchQuestions,
+        fetchQuestionsFile,
+        loading,
+        setLoading,
+      }}
     >
       {children}
     </QuestionsContext.Provider>
