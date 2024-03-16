@@ -13,7 +13,7 @@ export default function Questions() {
   const [correctAnswer, setCorrectAnswer] = useState({
     answerSelected: false,
     correctAnswer: false,
-    text: "left or right?",
+    text: "left 😩 or right ✅?",
     icon: <LuArrowLeftRight />,
   });
 
