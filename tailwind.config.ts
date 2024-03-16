@@ -14,13 +14,14 @@ const config: Config = {
     colors: {
       white: "#FFFFFF",
       darkGray: "#2B2D42",
-      gray: "#8D99AE",
-      lightGray: "#EDF2F4",
+      gray: "#888888",
+      lightGray: "#F9F9F9",
       myRed1: "#EF233C",
       myRed2: "#D90429",
     },
     extend: {
       backgroundImage: {
+        'default': "url('/img/background.png')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
