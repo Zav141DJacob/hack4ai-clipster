@@ -15,6 +15,8 @@ type Data = {
   error?: string;
 };
 
+export const maxDuration = 60;
+
 export async function POST(req: Request, res: NextResponse) {
   try {
     const formData = await req.formData();
