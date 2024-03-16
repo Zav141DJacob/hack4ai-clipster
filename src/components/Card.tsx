@@ -1,15 +1,17 @@
 import { Question } from "@/types/Question";
-import React, { MutableRefObject } from "react";
+import React, { MutableRefObject, useContext, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { FaRegTimesCircle } from "react-icons/fa";
+import { QuestionsContext } from "@/context/QuestionContext";
+import { useRouter } from "next/router";
 
 interface Props {
   bg1Ref: MutableRefObject<HTMLDivElement | null>;
   bg2Ref: MutableRefObject<HTMLDivElement | null>;
   navRef: MutableRefObject<HTMLDivElement | null>;
   textareaRef: MutableRefObject<HTMLTextAreaElement | null>;
-
+  index: number;
   question: Question;
   setCorrectAnswer: React.Dispatch<
     React.SetStateAction<{
@@ -35,6 +37,7 @@ const Card = ({
   textareaRef,
   setCorrectAnswer,
   correctAnswer,
+  index,
 }: Props) => {
   const clickEvent = () => {
     bg1Ref.current?.classList.toggle("bg-myRed1");
@@ -45,9 +48,20 @@ const Card = ({
     navRef.current?.classList.toggle("text-myRed2");
     textareaRef.current?.classList.toggle("border-b");
   };
+  const router = useRouter();
+
+  const { setQuestions } = useContext(QuestionsContext);
 
   const onSwipe = (direction: string) => {
     if (question.a === true && direction === "right") {
+      setQuestions((prevQuestions) => {
+        const updatedQuestions = [...prevQuestions];
+        updatedQuestions[index] = {
+          ...updatedQuestions[index],
+          correct: true,
+        };
+        return updatedQuestions;
+      });
       setCorrectAnswer({
         ...correctAnswer,
         answerSelected: true,
@@ -58,6 +72,14 @@ const Card = ({
     }
 
     if (question.a === false && direction === "left") {
+      setQuestions((prevQuestions) => {
+        const updatedQuestions = [...prevQuestions];
+        updatedQuestions[index] = {
+          ...updatedQuestions[index],
+          correct: true,
+        };
+        return updatedQuestions;
+      });
       setCorrectAnswer({
         ...correctAnswer,
         answerSelected: true,
@@ -71,6 +93,14 @@ const Card = ({
       (question.a === true && direction === "left") ||
       (question.a === false && direction === "right")
     ) {
+      setQuestions((prevQuestions) => {
+        const updatedQuestions = [...prevQuestions];
+        updatedQuestions[index] = {
+          ...updatedQuestions[index],
+          correct: false,
+        };
+        return updatedQuestions;
+      });
       setCorrectAnswer({
         ...correctAnswer,
         answerSelected: true,
@@ -78,6 +108,10 @@ const Card = ({
         text: "incorrect",
         icon: <FaRegTimesCircle />,
       });
+    }
+
+    if (index === 0) {
+      router.push("/");
     }
   };
 

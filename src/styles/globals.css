@@ -5,7 +5,7 @@
 body {
   margin: 0;
   height: 100vh;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 
@@ -27,4 +27,8 @@ body {
 
 .shadow1 {
   border-radius: 50px;
+}
+
+.container {
+  overflow-x: hidden;
 }

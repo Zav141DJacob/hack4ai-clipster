@@ -39,7 +39,7 @@ export default function Questions() {
   };
 
   return (
-    <SlideFade offsetY="20px" in={true}>
+    <SlideFade in>
       <main className="flex flex-col h-[100vh] justify-between overflow-x-hidden z-10">
         <React.Fragment>
           <div
@@ -53,9 +53,9 @@ export default function Questions() {
         </React.Fragment>
         <Nav myRef={navRef} />
 
-        <div className="h-full flex justify-center md:pt-24 pt-40">
+        <div className="h-[90%] flex flex-col sm:flex-row justify-center sm:mt-36 w-full absolute overflow-hidden">
           {questions &&
-            questions.map((question: Question, index) => (
+            questions.map((question: Question, index: any) => (
               <Card
                 textareaRef={textareaRef}
                 question={question}
@@ -65,6 +65,7 @@ export default function Questions() {
                 navRef={navRef}
                 setCorrectAnswer={setCorrectAnswer}
                 correctAnswer={correctAnswer}
+                index={index}
               />
             ))}
         </div>
@@ -76,21 +77,6 @@ export default function Questions() {
             {correctAnswer.icon}
           </p>
         </div>
-
-        {/* <div className="bg-myRed1 rounded-3xl mx-[12%] sm:mx-auto mb-12 pt-4 max-w-[28rem] border border-white">
-          <textarea
-            ref={textareaRef}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Your answer"
-            rows={1}
-            className="w-full outline-none text-center text-white max-w-full pb-4 px-4 border-b border-b-1 border-b-white bg-myRed1 rounded-xl placeholder-lightGray"
-          >
-
-          </textarea>
-          <button
-            className="absolute right-0 "
-            onClick={() => onSubmit(text)}>submit</button>
-        </div> */}
       </main>
     </SlideFade>
   );
