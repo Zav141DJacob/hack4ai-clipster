@@ -53,11 +53,12 @@ const QuestionsProvider = ({ children }: QuestionProvidedProps) => {
   };
 
   useEffect(() => {
-    if (questions.length >= 1) {
-      router.push("/Questions");
-    } else {
-      router.push("/");
-    }
+    console.log("question change")
+    // if (questions.length >= 1) {
+    //   router.push("/Questions");
+    // } else {
+    //   router.push("/summary");
+    // }
   }, [questions]);
 
   return (

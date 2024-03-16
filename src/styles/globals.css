@@ -28,3 +28,7 @@ body {
 .shadow1 {
   border-radius: 50px;
 }
+
+textarea {
+  @apply resize-none;
+}
