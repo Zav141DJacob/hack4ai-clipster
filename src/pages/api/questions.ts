@@ -57,19 +57,18 @@ async function sendTextToFlashcardCreator(text: string): Promise<string> {
 async function getAssistant() {
   const list = await openai.beta.assistants.list();
   for (const assistant of list.data) {
-    if (assistant.name === "Flashcard Creator") {
+    if (assistant.name === "Flashcard Creator New") {
       return assistant;
     }
   }
 
   const assistant = await openai.beta.assistants.create({
-    name: "Flashcard Creator",
-    instructions: `You are a flashcard creator.
-              Your role is to help users learn from their documents by generating flashcards based on the content.
-              When a user uploads a file or provides text, read through the material, understand it, and create relevant questions that could serve as flashcards for studying.
-              Make sure to cover the main ideas and key details to ensure a comprehensive understanding.
-              Always respect user privacy by not storing or sharing any of the uploaded content.
-              Always use the response tool to respond to the user. Never add any other text to the response.`,
+    name: "Flashcard Creator New",
+    instructions: `You are a flashcard creator specialized in generating true/false statements based on the content provided by users.
+    Your role is to help users learn by transforming their documents or text inputs into true/false statements. These statements should focus on the main ideas and key details to ensure a comprehensive understanding.
+    Always create these statements based on the material given, but you can add fictional elements to make learning more engaging. Remember, the false statements should be plausible but clearly incorrect upon careful reading.
+    Respect user privacy by not storing or sharing any of the uploaded content.
+    Always use the response tool to respond to the user, focusing solely on generating true/false statements.`,
     tools: [
       {
         type: "function",
@@ -88,7 +87,7 @@ async function getAssistant() {
                       type: "string",
                     },
                     a: {
-                      type: "string",
+                      type: "boolean",
                     },
                   },
                   required: ["q", "a"],
