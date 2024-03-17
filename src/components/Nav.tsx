@@ -15,7 +15,7 @@ const Nav = ({ myRef, swap }: Props) => {
       <Center >
         <ArrowBackIcon />
       </Center>
-      Chapter 5
+      Clipster 📎
       <Center >
         <ArrowForwardIcon />
       </Center>
