@@ -42,8 +42,8 @@ export default function AskAi() {
             </p>
 
             <MyChart />
-            <p>
-              {correctCount} / {questions.length} correct
+            <p className="font-regularBold text-l">
+              {correctCount} / {questions.length} correct 🎉
             </p>
           </div>
         </div>
