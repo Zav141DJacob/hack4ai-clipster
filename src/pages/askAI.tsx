@@ -19,6 +19,7 @@ export default function AskAi() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: false,
+    maxSize: 4200000,
   });
 
   return (
