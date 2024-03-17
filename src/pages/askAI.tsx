@@ -37,7 +37,7 @@ export default function AskAi() {
           </p>
         </div>
 
-        <div className="shadow-md shadow-myRed1 rounded-3xl text-sm sm:text-md md:text-lg text-center bg-lightGray py-4 mx-3 md:mx-20 md:mt-0">
+        <div className="shadow-md shadow-myRed1 rounded-3xl text-sm sm:text-md md:text-lg text-center bg-lightGray py-4 mx-3 md:mx-48 md:mt-0">
           <div className="flex px-4">
             <textarea
               onChange={(e) => setText(e.target.value)}
@@ -76,7 +76,7 @@ export default function AskAi() {
             </Center>
           </div>
         </div>
-        <div className="py-5 md:px-40 px-3">
+        <div className="py-5 md:px-48 px-3">
           <div className="grid grid-cols-2 gap-4">
             <AskAiCard
               title="Memorise"
