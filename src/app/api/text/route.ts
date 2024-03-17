@@ -19,6 +19,8 @@ type InputData = {
   text: string;
 };
 
+export const maxDuration = 60;
+
 export async function POST(req: Request) {
   let input = (await req.json()) as InputData;
   if (!input.text) {
