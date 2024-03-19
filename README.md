@@ -1,44 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Clipster: Hack4AI Riga 2024 Winner
 
-## Getting Started
+**AI-generated flashcards app for studying based on pdf/text input**
 
-First, run the development server:
+Having a hard time studying for exams? Well don't worry, we got you covered!
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+_Say goodbye to the stress and anxiety from studying._
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![](img.png)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Problem
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+In today's fast-paced educational environment, traditional study methods just don't cut it. Simply upload your pdfs or text books into Clipster, and our AI will turn them into interactive flashcards, designed for both students and teachers.
+Key Features:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Personalized Learning: Dive into a customized study experience as Clipster's AI generates flashcards based on your text prompt or pdf material.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Instant flashcards from your pdfs: Just click and drop and you will get custom tailored set of flashcards for your needs.
 
-## Learn More
+- Progress Tracking & Feedback: Stay on top of your study game with progress reports and feedback to help you understand where you need focus.
 
-To learn more about Next.js, take a look at the following resources:
+- Interactive Study Sessions: Teachers can create dynamic flashcards designed to make learning interactive and fun.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Transform Your Study Habits:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Clipster is more than just an app; it's your personal study companion. It encourages, motivates, and guides you through your educational journey, breaking down complex subjects to help you revise for exams.
 
-## Deploy on Vercel
+Feel free to give our app a try! Start your journey now towards smarter and more effective learning.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+https://hack4ai-clipster.vercel.app/
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## Environment variables
-
-Copy .env to .env.local and fill in the variables.
